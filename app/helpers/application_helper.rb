@@ -22,4 +22,8 @@ module ApplicationHelper
     2 == 2
   end
   
+  def sample_app_logo
+    image_tag("logo.png", :alt => "Sample App", :class => "round")
+  end
+  
 end

@@ -1,6 +1,6 @@
 require './String.rb'
 
-class User
+class Usertest
   attr_accessor :name, :email, :desc
   
   def initialize(attributes = {})
