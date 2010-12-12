@@ -28,5 +28,32 @@ describe "LayoutLinks" do
       response.should have_selector('title', :content => "Sign up")
     end
     
+    it "should go to Home page when logo clicked" do
+      visit about_path
+      click_link "sample_app_logo"
+      response.should have_selector('title', :content => "Home")
+    end
+    
+    it "should have the right links on the layout" do
+      visit root_path
+      click_link "About"
+      response.should have_selector('title', :content => "About")
+      
+      #must go back to home page to test Sign up button
+      #could make this the first test but this proves
+      #that at this point you cannot click_link Home page elements
+      #Note: click_link param can be text or title or id 
+      visit root_path
+      click_link "signup_button"
+      response.should have_selector('title', :content => "Sign up")    
+      
+      click_link "Help"
+      response.should have_selector('title', :content => "Help")
+      click_link "Contact"
+      response.should have_selector('title', :content => "Contact")
+      click_link "Home"
+      response.should have_selector('title', :content => "Home")
+    end
+    
   end
 end

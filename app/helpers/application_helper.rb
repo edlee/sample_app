@@ -23,7 +23,7 @@ module ApplicationHelper
   end
   
   def sample_app_logo
-    image_tag("logo.png", :alt => "Sample App", :class => "round")
+    image_tag("logo.png", :alt => "Sample App", :class => "round", :id => "sample_app_logo")
   end
   
 end
