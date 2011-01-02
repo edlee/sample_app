@@ -96,8 +96,48 @@ describe User do
       @user.should respond_to(:encrypted_password)
     end
     
-  end #end of password encryption
+    it "should have a non blank encrypted password"  do
+      @user.encrypted_password.should_not be_blank
+    end
 
+    describe "has_password? method" do
+      it "should respond to has_password?" do
+      @user.should respond_to(:has_password?)
+      end
+    
+      it "should return true if password matches" do
+        @user.has_password?(@attr[:password]).should be_true
+      end
+    
+      it "should return false if password does not match" do
+        @user.has_password?("#{@attr[:password]}--invalid").should be_false
+      end
+      
+      it "should have a non blank salt" do
+        @user.salt.should_not be_blank
+      end
+    end #end has_password? method
+    
+    describe "authenticate method" do
+      it "should return nil on email/password mismatch" do
+        wrong_pw_user = User.authenticate(@attr[:email],"#{@attr[:password]}--invalid")
+        wrong_pw_user.should be_nil
+      end
+      
+      it "should return nil if user email is not found" do
+        no_user = User.authenticate("not-here-#{@attr[:email]}", @attr[:password])
+        no_user.should be_nil
+      end
+      
+      it "should return user on email/password match" do
+        pw_user = User.authenticate(@attr[:email], @attr[:password])
+        pw_user.should_not be_nil
+        pw_user.has_password?(@attr[:password]).should be_true
+        pw_user.should == @user        
+      end
+    end #end authenticate method
+
+  end #end of password encryption
 end
 
 
