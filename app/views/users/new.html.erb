@@ -1,6 +1,23 @@
+<script type="text/javascript">
+window.onload = function() {
+	//if there are field errors put focus on first error field
+	//this is the second errorDivs element since the first is the lable
+	//else put focus on first field user_name
+	errorDivs = document.getElementsByClassName('field_with_errors');
+	if (errorDivs.length > 0){
+		inputFields = errorDivs[1].getElementsByTagName('input');
+		inputFields[0].focus();
+	}
+	else{
+		document.getElementById('user_name').focus();
+	}
+	
+}
+</script>
 <h1>Sign Up</h1>
 
 <%= form_for(@user) do |f|%>
+  <%= render 'shared/error_messages'%>
   <div class="field">
 	<%= f.label :name%><br />
 	<%= f.text_field :name%>
