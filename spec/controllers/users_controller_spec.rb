@@ -47,6 +47,21 @@ render_views
       response.should have_selector("title", :content => "Sign up")
     end
     
+    it "should have a name field" do
+      get :new
+      response.should have_selector("input [name='user[name]'] [type='text']")
+    end
+    
+    it "should have an email field" do
+      get :new
+      response.should have_selector("input [name='user[email]'] [type='text']")
+    end
+    
+    it "should have a password" do
+      get :new
+      response.should have_selector("input [name='user[password]'] [type='password']")
+    end
+    
   end #end Get new
   
   describe "POST 'create'" do
